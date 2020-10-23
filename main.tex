@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\renewcommand{\baselinestretch}{1.0} 
+\newcommand*{\TitleFont}{%
+      \usefont{\encodingdefault}{\rmdefault}{b}{n}%
+      \fontsize{14}{20}%
+      \selectfont}
+\newcommand*{\MyFont}{%
+      \usefont{\encodingdefault}{\rmdefault}{n}{n}%
+      \fontsize{12}{20}%
+      \selectfont}
+
+\title{\TitleFont \vspace{-5ex} Statistical Convolutional Neural Network with Information Theoretical Filter Pruning}
+\author{\MyFont Paulo Ricardo Branco da Silva}
+\date{}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+\begin{document}
+
+\maketitle
+
+\noindent \textbf{Associated Project:} Data Science \\
+\textbf{Proponent’s Graduate Program:} Ph.D. in Information Theory and Error Correction Coding at Universidade Federal de Santa Catarina (Prof. Danilo Silva as supervisor) with research internship of one year at Imperial College London under the supervision of Prof. Cong Ling\\
+
+\section*{Motivation}
+I want to deepen my knowledge in Data Science and to make it my main research interest. I would like to work with theoretical problems that underlie practical applications in many fields of Data Science, including Computer Vision. I am interested in understanding the inner workings of neural networks and in non-convex optimization problems. I want to be able to understand neural networks to the extent that I become an expert at designing state-of-the-art architectures and in choosing hyperparameters and making well-informed design choices. I also like tallying and crunching numbers in order to  derive informative statistics from data.
+	
+Besides my interest in the tools and in the field, the work being conducted in Radar imaging is rich in applications and physical concepts which appeal to me. The use of satellite communication systems, the use of signals in the microwave bandwidth, the problem’s rich geometry, the stochastic nature of its signals and the deep correlation between the stacks of images produced are just a small sample of the aspects that spark my interest. The imaging problem described by synthetic aperture radars (SARs) is of particular interest, since the images it produces contain a rich array of information, including magnitude and phase information predicated by polarization. The rich amount of information that it produces is a very promising candidate for a Deep Learning analysis.
+	
+The fact that neural networks and Data Science seem to be able to extract statistical and descriptive features from data is also very relevant to me. Having done most of my work in Communications, to learn and transmit information is a characteristic that I believe makes Machine Learning very exciting. 
+
+\section*{Experience}
+
+I studied during my Master’s and my doctoral studies Information Theory and error correction codes. I worked with sparse codes defined on graphs and with Belief Propagation decoding algorithms.  I constructed constellations via discrete groups in n-dimensional real spaces so as to obtain linearity properties and high spectral efficiency. And this work was capped off by the development of power-minimizing constellation boundaries via nested lattice shaping. 
+
+These activities gave me insight into information-related and probabilistic concepts. I believe that my abilities in deriving models and working with information theoretical concepts can be used to better understand the inner workings of convolutional neural networks. In particular, I believe that Information Theory, being a field defined by boundaries and asymptotic studies of behavior, may provide many answers to many obscure properties of neural networks. Given the interaction between so many variable within neural network, network Information Theory might also be a promising way to further investigate these systems.
+
+I also believe that important concepts in communication such as compression and Rate Distortion Theory have many useful applications in neural network design. Network design as is can be seen as an unwieldy set of heuristics that are poorly understood. To be able to improve upon their performance and hyperparameters without at least an intuition on how features affect the number of filters and layers ends up creating many unknowns which need to be addressed every time a new architecture is devised. Using Information Theory to address these questions can make the process much more intuitive and automated.
+
+In Imperial College London I studied polar and LDGM codes and specially quantization and compression methods, including a large study into optimization problems related to Rate Distortion Theory.
+
+\section*{Project Description}
+
+Our idea is to design highly efficient statistical convolutional neural networks (SCNNs). We measure efficiency in terms of compression. Our goal is to design such networks with the least amount of parameters and layers that retains the desired accuracy.
+
+Convolutional networks are powerful in learning features from a large set of variables and in categorising and predicting otherwise extremely difficult variables to model. In particular, these networks are very well suited to computer vision. Applications in this domain are notoriously challenging in that the desired output may depend on an extremely large amount of variables. In addition, the output is related to the input via complex non-linear functions, most of which cannot even be expressed in analytic form. 
+	
+Another strength of convolutional neural networks is the ability to use kernels that filter specific details important to the final output. This can be best understood in terms of outlines within images. Kernels may be designed to detect lines, curves, and all assortment of complex geometric shapes. In fact, kernels do not even need to be designed; they can be learned. This property makes CNNs extremely powerful. Once the network goes layers deep, after hidden layers such as convolutional kernels, fully-connected (FC) layers, linear rectifier units (ReLUs), and batch normalization, the system’s inner variables no longer represent or detect information that can be intuitively described or mathematically formulated. In fact, it is this level of abstraction that leverages the ability to solve extremely complex problems. Many kernels are applied in parallel in order to identify different image features, increasing the network’s strength in learning from the data.
+
+The number of variables and the depth of a CNN result in a staggering number of parameters to be learned. ResNets \cite{he_deep_2015}, AlexNets \cite{krizhevsky_imagenet_2012}, VGG \cite{simonyan_very_2014} and other powerful architectures predict outcomes with high accuracy essentially because they are able to learn optimizing parameters coming from many different variables and paths for the training data set via stochastic gradient descent (SGD) \cite{nielsen_neural_2015}.
+
+However, as in any Machine Learning problem, overparameterization is a source of concern, since it makes the model prone to overfit the training data. There are ways to diminish this problem. The two main approaches include regularization and pooling. Adding regularization terms to the cost function penalizes the overuse of parameters. Pooling summarizes the information of many filters usually via the average or activation values amidst a specific set of filters in a layer \cite[Chapter~9]{Goodfellow-et-al-2016}. By reducing the number of outputs from a layer and by summarizing them, the number of parameters are reduced and the data’s randomness is smoothed over. 
+
+The main problem with overfitting is that the trained model won’t generalize well to the test set. Despite all the tools at our disposal, the best approach to increase the potential of good generalization is the simple yet non-trivial process of parameter reduction. In the Literature, this process is known as parameter pruning \cite{li_pruning_2016,blalock_what_2020}, and this can relate to removing neurons in the network and creating sparsity or to doing away with entire filters. With fewer parameters, the CNN produces models that generalize much more reliably. 
+
+Discarding parameters is a not an easy problem though. To determine which connections, weights and biases are essential requires a deep a priori understanding of how input variables relate to the output. In theory, that could be achieved through statistical and probabilistic analysis of the input. Information Theory is a method to gain insight into the learning process, but it has drawbacks. The main one is that Information Theory is heavily dependent upon the joint probability distributions that govern the system. But a CNN has many correlated variables. The highly complex and rich relationships between variables make the computation of joint probability density functions virtually impossible. Aside from that, the deeper layers pose yet another problem. Since they are so abstract, we do not even know what the variables they process mean and how they exactly relate to the input and to the output. To determine their statistics via standard statistical analysis is unfeasible. 
+
+More than addressing overfitting, there are other advantages to pruning, namely, energy-efficient computing and a lower storage footprint. Fewer parameters mean that the feedforward propagation requires less computations. In addition, the amount of memory to store the network’s parameters is significantly reduced. This is  well evidenced in the framework of Tiny ML. In embedded systems, the limitation of the processing units forces Machine Learning architectures to be as lean as possible. This is usually achieved via a mix of pruning, weight quantization, and compression. Quantization involves limiting the weights to a pre-defined code set. This is a first step in reducing the number of bits handled by the system. And since the probability distribution of weights is non-uniform, Huffman coding can be used to reduce even further the number of stored bits. In Tiny ML [Matthew Stewart] and in deep compression [Han, Mao] the usual pruning method discards neurons attached to near-zero-weight connections. However, this approach fails to take into consideration dependencies at deeper levels. Seemingly unimportant connections at a lower level may have a substantial influence on top layers.  
+
+Tiny ML gives us an interesting starting point to compressing a neural network.  Many of its design criteria can serve as guidelines for more efficient CNNs. However, there are further concepts that can also serve as a foundation for our implementation. One interesting step involves the use of autoencoders. They can be used even before the network is streamlined. Autoencoders are closely related to the communication problem, since they force a restricted description of the inputs. In an autoencoder, the hidden layers contain fewer nodes than the input layer. The idea is to synthesize only the essential features of the data. What an autoencoder does is a form of lossy compression. This can also be understood as a form of dimensionality reduction, closely resembling PCA, but with the caveat that it allows non-linearities. We intend to use autoencoders as the front-end to our CNNs, extracting from the input data only the most relevant features. 
+
+The next step handles pruning proper. Research suggests that mutual information is a much more robust pruning criterion than the absolute value of the parameters. Mutual information is an essential indicator of the importance of neurons and filters within the neural network structure. A neural network can effectively be described by its Information Bottleneck (IB), which is a principle devised for studying how data can be best extracted from the input. The IB is described by
+
+\begin{equation*}
+	L[p(x \mid t)] = I(X; T)−\beta I(T; Y), 
+\end{equation}
+					
+where $X$ and $Y$ denote respectively the input batch and its corresponding desired output, $T$ denotes the information processed by the filter, and $\beta$ the Lagrange multiplier, which controls the trade-off between compression and information retention. Assume that $T$ is a quantized codebook or, yet, a compressed representation of $X$ that also captures all the relevant data about $Y$. It is defined as $Y$’s minimum sufficient statistic. This means that T preserves $I(X;Y)$. The optimization objective is to minimize $I(X;T)$ to obtain the simplest (most compressed) statistics under a constraint on $I(T;Y)$. We want to compress the representation as much as possible whilst capturing the most relevant information about $Y$. This variational problem may be calculated iteratively, just like the Arimoto-Blahut algorithm. 
+
+Intuitively, a small value of the objective function indicates that a filter $T$ obtains a compressed representation of $X$ that is relevant to $Y$. Therefore, the smaller the objective value, the higher the importance of $T$. This information is key to determining whether a filter should or not be preserved in the final structure.
+
+It is interesting to note that the IB method is intrinsically related to Rate Distortion Theory, which is yet again another interesting connection to the lossy compression problem in Communications. The Information Bottleneck is an instance of Rate Distortion where the distortion measure Is given by the Kullback-Leibler divergence and in which the distortion measure varies given that it depends on the filter $T$.
+
+In order to apply the information theoretical concepts seen so far, we would need to compute the multivariate mutual information, but that requires joint probability density functions. As we saw before, these cannot be obtained. In order to circumvent this, it is possible to compute a matrix functional inspire by
+Renyi’s $\alpha$-entropy directly from the data. 
+	
+Another practical approach that can be used is the Partial Information Decomposition (PID). It breaks down the multivariate mutual information into its synergies and redundancies. When applied to filters, it shows how much each feature contributes to the neural network’s final prediction and how relevant the filter is to the network's estimate. There exists a trade-off between synergy and redundancy. The basic idea is to attempt to maximize synergies and minimize redundancies whilst retaining the fewest possible variables. The trade-offs can be better analysed with Information Plane (IP) curves. These curves indicate more precisely how information evolves within the network, demonstrating the bottleneck. There is usually a rapid increase in $I(X;T)$ and in $I(T;Y)$, but then there is a reversal in behaviour and the two quantities actually begin to decrease. This suggests that many properties of the networks have an optimum. The network should not increase indefinitely in terms of its number of layers, neurons or filters. There are practical optimum values.
+	
+Having laid the theoretical foundations to understand CNNs, we can now change the architecture’s backbone, substituting it by SCNNs. When adopting the SCNN architecture, data elements no longer subscribe to the pixels of a single image, but rather to a combination of features from a stack of images. In this representation the network propagates distributions as opposed to numbers. In [Wang, Xiong], independent component analysis (ICA) is used to separate a multivariate signal into $n$ random components. These random components serve as a representation basis for the functions passed in the network. The random components for a particular signal are weighted by mixing weights. These are the learning parameters in this framework. Under addition, the weights are independently summed. This is fundamental operation for feedforward in convolutional layers and fully-connected layers. In the pooling and non-linear activation layers, which require a maximum operation over the inputs, the weights of transmitted distributions are defined by a tightness probability distribution, which informs which distributions are greater than others. Most importantly, we note that all operations performed by CNNs over numeric inputs have a corresponding operation over distributions for SCNNs.
+
+SCNNs are interesting, for example, for the SAR’s imaging problem since they are able to leverage the correlation between frames. They smooth out errors and allow the use of redundant information. They generalize better because they are able to use the commonalities between adjacent frames, extracting information common to the frames, that is, potentializing on the synergies among them. And they speed up processing, as each batch contains much more information. This is particularly interesting for the SAR problem explored in [Dimas,], as the stack of processed images contain a substantial amount of similarities. This suggests that difference detection is a good option.  
+	
+
+	
+Our main idea is to incorporate to SCNNs the concept of parameter pruning via IB. We plan on developing the framework of [Tishby] to [Wang,Xiong]. Furthermore, we wish to investigate the essential parameters of an SCNN via Information Theory. Our goal is to find methods to define the number of layers and filters most adequate for our target accuracy and processing speed.
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
